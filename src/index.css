@@ -1,0 +1,162 @@
+@import "@fontsource/montserrat"; /* add this at the top */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  /* Base colors */
+  --background: 0 0% 100%;
+  --foreground: 20 14.3% 4.1%;
+  --muted: 60 4.8% 95.9%;
+  --muted-foreground: 25 5.3% 44.7%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 20 14.3% 4.1%;
+  --card: 0 0% 100%;
+  --card-foreground: 20 14.3% 4.1%;
+  --border: 20 5.9% 90%;
+  --input: 20 5.9% 90%;
+  
+  /* Primary colors - blues */
+  --primary: 213 93% 42%; /* #1D4ED8 */
+  --primary-foreground: 210 40% 98%;
+  
+  /* Secondary colors - purples */
+  --secondary: 262 83% 58%; /* #7C3AED */
+  --secondary-foreground: 210 40% 98%;
+  
+  /* Accent colors - ambers */
+  --accent: 38 92% 50%; /* #F59E0B */
+  --accent-foreground: 210 40% 98%;
+  
+  /* Other UI colors */
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 60 9.1% 97.8%;
+  --ring: 213 93% 42%;
+  --radius: 0.5rem;
+  
+  /* Chart colors */
+  --chart-1: 213 93% 42%;
+  --chart-2: 262 83% 58%;
+  --chart-3: 38 92% 50%;
+  --chart-4: 166 84% 45%;
+  --chart-5: 327 82% 55%;
+  
+  /* Font families */
+  font-family: 'Inter', sans-serif;
+}
+
+.dark {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  
+  /* Primary colors - blues (lighter in dark mode) */
+  --primary: 213 93% 68%; /* #3B82F6 */
+  --primary-foreground: 210 40% 98%;
+  
+  /* Secondary colors - purples (lighter in dark mode) */
+  --secondary: 262 83% 76%; /* #A78BFA */
+  --secondary-foreground: 0 0% 98%;
+  
+  /* Accent colors - ambers (lighter in dark mode) */
+  --accent: 38 92% 60%; /* #FBBF24 */
+  --accent-foreground: 0 0% 98%;
+  
+  /* Other UI colors */
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 213 93% 68%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground overflow-x-hidden antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-montserrat font-bold;
+  }
+}
+
+/* Critical CSS */
+.bg-gradient-hero {
+  background: linear-gradient(135deg, hsl(225, 64%, 33%) 0%, hsl(217, 91%, 60%) 50%, hsl(262, 83%, 66%) 100%);
+}
+
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* WebGL Canvas Placeholder styling */
+.webgl-placeholder {
+  background: linear-gradient(45deg, hsl(225, 64%, 33%), hsl(217, 91%, 60%), hsl(262, 83%, 66%));
+  background-size: 400% 400%;
+  animation: gradient 8s ease infinite;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Stats counter animation */
+.counter-anim {
+  animation: countUp 3s forwards;
+}
+
+/* Animation keyframes */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Utility animation classes */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+.animate-spin-slow {
+  animation: spin 8s linear infinite;
+}
+
+/* Pricing calculator styles */
+input[type="range"] {
+  -webkit-appearance: none;
+  height: 8px;
+  border-radius: 5px;
+  @apply bg-gray-300 dark:bg-gray-600;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  @apply bg-primary cursor-pointer;
+}
