@@ -6,7 +6,7 @@ import SEO from '@/components/shared/SEO';
 import ServiceCard from '@/components/home/ServiceCard';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
-import { services } from '@/data/services.ts';
+import { services } from '@/data/services.tsx';
 import { projects } from '@/data/projects';
 import WorkCard from '@/components/home/WorkCard';
 import SmartForm from '@/components/contact/SmartForm';
