@@ -15,7 +15,7 @@ export interface ServiceProps {
  * Service card component for displaying a service with icon, title, description and link
  */
 const ServiceCard: React.FC<ServiceProps> = ({ 
-  id, title, description, icon, color, link 
+  id, title, description, icon, color
 }) => {
   // Color class mappings
   const colorClasses = {

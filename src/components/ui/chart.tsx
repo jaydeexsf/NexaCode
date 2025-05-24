@@ -2,6 +2,19 @@
 
 import * as React from "react"
 import * as RechartsPrimitive from "recharts"
+import {
+  Area,
+  AreaChart,
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts"
 
 import { cn } from "@/lib/utils"
 
@@ -353,6 +366,84 @@ function getPayloadConfigFromPayload(
   return configLabelKey in config
     ? config[configLabelKey]
     : config[key as keyof typeof config]
+}
+
+interface ChartProps extends React.HTMLAttributes<HTMLDivElement> {
+  data: Array<{
+    name: string
+    value: number
+  }>
+  type?: "line" | "bar" | "area"
+  height?: number
+  showGrid?: boolean
+  showTooltip?: boolean
+  showXAxis?: boolean
+  showYAxis?: boolean
+  className?: string
+}
+
+export function Chart({
+  data,
+  type = "line",
+  height = 350,
+  showGrid = true,
+  showTooltip = true,
+  showXAxis = true,
+  showYAxis = true,
+  className,
+  ...props
+}: ChartProps) {
+  const chartComponents = {
+    line: (
+      <LineChart data={data}>
+        {showGrid && <CartesianGrid strokeDasharray="3 3" />}
+        {showXAxis && <XAxis dataKey="name" />}
+        {showYAxis && <YAxis />}
+        {showTooltip && <Tooltip />}
+        <Line
+          type="monotone"
+          dataKey="value"
+          stroke="#8884d8"
+          strokeWidth={2}
+        />
+      </LineChart>
+    ),
+    bar: (
+      <BarChart data={data}>
+        {showGrid && <CartesianGrid strokeDasharray="3 3" />}
+        {showXAxis && <XAxis dataKey="name" />}
+        {showYAxis && <YAxis />}
+        {showTooltip && <Tooltip />}
+        <Bar dataKey="value" fill="#8884d8" />
+      </BarChart>
+    ),
+    area: (
+      <AreaChart data={data}>
+        {showGrid && <CartesianGrid strokeDasharray="3 3" />}
+        {showXAxis && <XAxis dataKey="name" />}
+        {showYAxis && <YAxis />}
+        {showTooltip && <Tooltip />}
+        <Area
+          type="monotone"
+          dataKey="value"
+          fill="#8884d8"
+          stroke="#8884d8"
+        />
+      </AreaChart>
+    ),
+  }
+
+  return (
+    <div
+      className={cn("w-full", className)}
+      style={{ height }}
+      {...props}
+    >
+      <ResponsiveContainer width="100%" height="100%">
+        {chartComponents[type]}
+      </ResponsiveContainer>
+    </div>
+  )
 }
 
 export {

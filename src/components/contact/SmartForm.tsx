@@ -132,7 +132,7 @@ const SmartForm: React.FC = () => {
     return () => subscription.unsubscribe();
   }, [form.watch]);
   
-  const onSubmit = async (data: ContactFormValues) => {
+  const onSubmit = async (formData: ContactFormValues) => {
     try {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1500));
