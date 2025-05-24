@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Helmet } from 'react-helmet-async';
@@ -27,17 +27,10 @@ const Contact = () => {
     threshold: 0.1,
   });
   
-  const [formRef, formInView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const mapRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLDivElement>(null);
   
   const [infoRef, infoInView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-  
-  const [mapRef, mapInView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
@@ -48,6 +41,12 @@ const Contact = () => {
       formRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }, [fromEstimate, formRef]);
+
+  useEffect(() => {
+    if (mapRef.current && formRef.current) {
+      // Your map initialization code here
+    }
+  }, []);
 
   return (
     <main>
