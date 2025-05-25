@@ -2,16 +2,17 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'wouter';
 import { motion } from 'framer-motion';
-import { Calendar, Clock, Play, Search, ChevronRight, Calendar as CalendarIcon, Clock as ClockIcon, Users } from 'lucide-react';
+import { Calendar, Clock, Play, Search, Calendar as CalendarIcon, Clock as ClockIcon, Users } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
 import OptimizedImage from '@/components/shared/OptimizedImage';
 import * as THREE from 'three';
 import { useEffect, useRef } from 'react';
+import { useInView } from 'react-intersection-observer';
 
 // Mock webinar data (would typically come from API/CMS)
 const webinars = [

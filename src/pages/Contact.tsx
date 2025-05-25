@@ -27,26 +27,30 @@ const Contact = () => {
     threshold: 0.1,
   });
   
-  const mapRef = useRef<HTMLDivElement>(null);
-  const formRef = useRef<HTMLDivElement>(null);
-  
-  const [infoRef, infoInView] = useInView({
+  const [formRef, formInView] = useInView({
     triggerOnce: true,
-    threshold: 0.1,
+    threshold: 0.2,
   });
+  
+  const [mapRef, mapInView] = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
+  
+  const infoRef = useRef<HTMLDivElement>(null);
   
   // Scroll to form if coming from pricing calculator
   useEffect(() => {
-    if (fromEstimate && formRef.current) {
-      formRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (fromEstimate && formRef.ref) {
+      formRef.ref.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }, [fromEstimate, formRef]);
 
   useEffect(() => {
-    if (mapRef.current && formRef.current) {
+    if (mapRef.ref && formRef.ref) {
       // Your map initialization code here
     }
-  }, []);
+  }, [mapRef, formRef]);
 
   return (
     <main>
@@ -128,7 +132,7 @@ const Contact = () => {
               <motion.div
                 ref={infoRef}
                 initial={{ opacity: 0, x: -20 }}
-                animate={infoInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                animate={formInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                 transition={{ duration: 0.5 }}
               >
                 <h2 className="text-3xl font-bold mb-8">Contact Information</h2>

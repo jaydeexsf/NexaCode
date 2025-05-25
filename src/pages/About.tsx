@@ -16,6 +16,9 @@ import {
   Target, 
   Zap
 } from 'lucide-react';
+import { useInView } from 'react-intersection-observer';
+import { Badge } from '@/components/ui/badge';
+import { Link } from 'wouter';
 
 // Company value interface
 interface CompanyValue {

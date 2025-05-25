@@ -8,6 +8,8 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Calendar, Clock, User, Tag, Search } from 'lucide-react';
+import { useInView } from 'react-intersection-observer';
+import { Link } from 'wouter';
 
 // Blog post interface
 interface BlogPost {
@@ -415,7 +417,7 @@ const BlogPage = () => {
                         </span>
                       </div>
                       <CardTitle className="text-xl hover:text-primary transition-colors">
-                        <a href={`/blog/${post.id}`}>{post.title}</a>
+                        <Link href={`/blog/${post.id}`}>{post.title}</Link>
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="flex-grow">
@@ -482,7 +484,7 @@ const BlogPage = () => {
                               </span>
                             </div>
                             <CardTitle className="text-xl hover:text-primary transition-colors">
-                              <a href={`/blog/${post.id}`}>{post.title}</a>
+                              <Link href={`/blog/${post.id}`}>{post.title}</Link>
                             </CardTitle>
                           </CardHeader>
                           <CardContent className="flex-grow">

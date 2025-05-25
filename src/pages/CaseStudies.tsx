@@ -9,7 +9,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { projects, ProjectDetail } from '@/data/projects';
+import { projects } from '@/data/projects';
+import { ProjectDetail, WorkItemProps } from '@/types/project';
 import { useTheme } from '@/lib/theme-provider';
 import OptimizedImage from '@/components/shared/OptimizedImage';
 import * as THREE from 'three';
@@ -128,7 +129,7 @@ const CaseStudies = () => {
   const industries = Array.from(
     new Set(
       projects
-        .map(project => "industry" in project ? (project as ProjectDetail).industry : null)
+        .map(project => "industry" in project ? (project as ProjectDetail).industry || 'Not specified' : 'Not specified')
         .filter(Boolean)
     )
   );
@@ -316,11 +317,9 @@ const CaseStudies = () => {
                               </div>
                               <CardContent className="p-6 w-full md:w-2/3">
                                 <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                                {"industry" in project && (
-                                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
-                                    Industry: {(project as ProjectDetail).industry}
-                                  </p>
-                                )}
+                                <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                                  Industry: {project.industry || 'Not specified'}
+                                </p>
                                 <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">
                                   {project.description}
                                 </p>

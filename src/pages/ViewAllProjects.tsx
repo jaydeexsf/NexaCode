@@ -8,10 +8,11 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { projects, ProjectDetail } from '@/data/projects';
+import { projects } from '@/data/projects';
 import OptimizedImage from '@/components/shared/OptimizedImage';
 import * as THREE from 'three';
 import { useRef } from 'react';
+import { ProjectDetail, WorkItemProps } from '@/types/project';
 
 // Interactive Three.js background
 const InteractiveBackground = () => {
@@ -158,8 +159,12 @@ const ViewAllProjects = () => {
   const industries = Array.from(
     new Set(
       projects
-        .map(project => "industry" in project ? (project as ProjectDetail).industry : null)
-        .filter(Boolean)
+        .map(project => {
+          if ('industry' in project && typeof (project as any).industry === 'string' && (project as any).industry) {
+            return (project as any).industry as string;
+          }
+          return 'Not specified';
+        })
     )
   );
   
@@ -188,7 +193,7 @@ const ViewAllProjects = () => {
     // Filter by industry
     const matchesIndustry = 
       industryFilter === 'all' || 
-      ("industry" in project && (project as ProjectDetail).industry === industryFilter);
+      ('industry' in project && typeof project.industry === 'string' && project.industry === industryFilter);
     
     // Filter by technology
     const matchesTechnology = 
@@ -348,7 +353,7 @@ const ViewAllProjects = () => {
             ) : (
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {currentProjects.map((project, index) => (
+                  {(currentProjects as (ProjectDetail | WorkItemProps)[]).map((project, index) => (
                     <motion.div
                       key={project.id}
                       initial={{ opacity: 0, y: 20 }}
@@ -365,18 +370,16 @@ const ViewAllProjects = () => {
                               className="object-cover w-full h-full transition-transform hover:scale-105"
                             />
                           </div>
-                          <CardContent className="p-6">
+                          <CardContent className="p-6 w-full md:w-2/3">
                             <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                            {"industry" in project && (
-                              <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
-                                Industry: {(project as ProjectDetail).industry}
-                              </p>
-                            )}
+                            <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                              Industry: {project.industry || 'Not specified'}
+                            </p>
                             <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">
                               {project.description}
                             </p>
                             <div className="flex flex-wrap gap-2 mb-4">
-                              {project.tags.slice(0, 3).map((tag) => (
+                              {project.tags.slice(0, 3).map((tag: string) => (
                                 <Badge key={tag} variant="outline" className="bg-gray-100 dark:bg-gray-800">
                                   {tag}
                                 </Badge>
